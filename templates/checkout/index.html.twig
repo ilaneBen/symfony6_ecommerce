@@ -1,0 +1,15 @@
+
+{% block title %}Hello CheckoutController!{% endblock %}
+
+{% block body %}
+
+    <script>
+        (function(){
+            const stripe = Stripe('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');
+            stripe.redirectToCheckout({
+                sessionId: "{{ sessionId }}"
+            })
+        })();
+    </script>
+
+{% endblock %}

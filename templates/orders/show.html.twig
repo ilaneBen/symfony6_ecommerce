@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Orders{% endblock %}
+
+{% block body %}
+    <h1>Orders</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ order.id }}</td>
+            </tr>
+            <tr>
+                <th>Produits</th>
+                <td>{{ order.produits }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ order.prix }}</td>
+            </tr>
+            <tr>
+                <th>Quantite</th>
+                <td>{{ order.quantite }}</td>
+            </tr>
+            <tr>
+                <th>Total</th>
+                <td>{{ order.total }}</td>
+            </tr>
+            <tr>
+                <th>Totals</th>
+                <td>{{ order.totals }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_orders_index') }}">back to list</a>
+
+    <a href="{{ path('app_orders_edit', {'id': order.id}) }}">edit</a>
+
+    {{ include('orders/_delete_form.html.twig') }}
+{% endblock %}

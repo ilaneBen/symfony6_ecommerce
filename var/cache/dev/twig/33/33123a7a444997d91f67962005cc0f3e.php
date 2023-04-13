@@ -184,7 +184,7 @@ class __TwigTemplate_5490fe0bffb49f9099cf3de2d58f477d extends Template
         // line 99
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_burgers_index");
         echo "\" class=\"btn1\">
-                        Commander Maintenant
+                        Commander Maintenant avec le click and collect
                       </a>
                     </div>
                   </div>
@@ -247,17 +247,19 @@ class __TwigTemplate_5490fe0bffb49f9099cf3de2d58f477d extends Template
   <!-- end about section -->
 
   <!-- book section -->
-  <section>
+  <section class='mb-5'>
+        <div class=\"heading_container heading_center psudo_white_primary mb-3\">
         <h2>
           Click and Collect
         </h2>
+        </div>
         <div class=\"original\">
         <a href=\"";
-        // line 165
+        // line 167
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_burgers_index");
         echo "\">
         <img src=\"";
-        // line 166
+        // line 168
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/images/c1.png"), "html", null, true);
         echo "\" alt=\"\"></a>
 </div>
@@ -266,31 +268,19 @@ class __TwigTemplate_5490fe0bffb49f9099cf3de2d58f477d extends Template
 
   <!-- client section -->
 
-  <section class=\"client_section layout_padding-bottom\">
-    <div class=\"container\">
-      <div class=\"heading_container heading_center psudo_white_primary mb_45\">
-        <h2>
-          What Says Our Customers
+      <div class=\"heading_container heading_center psudo_white_primary mb-3\">
+        <h2 class=\"mb_3\">
+         Nos contacts
         </h2>
       </div>
-      <div class=\"carousel-wrap row \">
-        <div class=\"owl-carousel client_owl-carousel\">
-          <div class=\"item\">
-            <div class=\"box\">
-              <div class=\"detail-box\">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-                </p>
-                <h6>
-                  Moana Michell
-                </h6>
-                <p>
-                  magna aliqua
-                </p>
+              <div class=\"maps\">
+                
+                 <iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2782.2461632572085!2d4.790561300000001!3d45.786295869307786!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4ebeec2b9f47b%3A0xe87f06f648cb2f8e!2sLa%20Grilladerie!5e0!3m2!1sfr!2sfr!4v1681398056286!5m2!1sfr!2sfr\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>
+                
               </div>
               <div class=\"img-box\">
                 <img src=\"";
-        // line 196
+        // line 186
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\AssetExtension']->getAssetUrl("assets/images/client1.png"), "html", null, true);
         echo "\" alt=\"\" class=\"box-img\">
               </div>
@@ -300,13 +290,13 @@ class __TwigTemplate_5490fe0bffb49f9099cf3de2d58f477d extends Template
             <div class=\"box\">
               <div class=\"detail-box\">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+
                 </p>
                 <h6>
-                  Mike Hamell
+
                 </h6>
                 <p>
-                  magna aliqua
+
                 </p>
               </div>
               <div class=\"img-box\">
@@ -445,7 +435,7 @@ class __TwigTemplate_5490fe0bffb49f9099cf3de2d58f477d extends Template
 
     public function getDebugInfo()
     {
-        return array (  294 => 196,  261 => 166,  257 => 165,  224 => 135,  185 => 99,  122 => 38,  112 => 37,  82 => 16,  69 => 5,  59 => 4,  36 => 1,);
+        return array (  284 => 186,  263 => 168,  259 => 167,  224 => 135,  185 => 99,  122 => 38,  112 => 37,  82 => 16,  69 => 5,  59 => 4,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -549,7 +539,7 @@ class __TwigTemplate_5490fe0bffb49f9099cf3de2d58f477d extends Template
                     </p>
                     <div class=\"btn-box\">
                       <a href=\"{{ path('app_burgers_index') }}\" class=\"btn1\">
-                        Commander Maintenant
+                        Commander Maintenant avec le click and collect
                       </a>
                     </div>
                   </div>
@@ -609,10 +599,12 @@ class __TwigTemplate_5490fe0bffb49f9099cf3de2d58f477d extends Template
   <!-- end about section -->
 
   <!-- book section -->
-  <section>
+  <section class='mb-5'>
+        <div class=\"heading_container heading_center psudo_white_primary mb-3\">
         <h2>
           Click and Collect
         </h2>
+        </div>
         <div class=\"original\">
         <a href=\"{{ path('app_burgers_index') }}\">
         <img src=\"{{ asset('assets/images/c1.png') }}\" alt=\"\"></a>
@@ -622,27 +614,15 @@ class __TwigTemplate_5490fe0bffb49f9099cf3de2d58f477d extends Template
 
   <!-- client section -->
 
-  <section class=\"client_section layout_padding-bottom\">
-    <div class=\"container\">
-      <div class=\"heading_container heading_center psudo_white_primary mb_45\">
-        <h2>
-          What Says Our Customers
+      <div class=\"heading_container heading_center psudo_white_primary mb-3\">
+        <h2 class=\"mb_3\">
+         Nos contacts
         </h2>
       </div>
-      <div class=\"carousel-wrap row \">
-        <div class=\"owl-carousel client_owl-carousel\">
-          <div class=\"item\">
-            <div class=\"box\">
-              <div class=\"detail-box\">
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
-                </p>
-                <h6>
-                  Moana Michell
-                </h6>
-                <p>
-                  magna aliqua
-                </p>
+              <div class=\"maps\">
+                
+                 <iframe src=\"https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2782.2461632572085!2d4.790561300000001!3d45.786295869307786!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47f4ebeec2b9f47b%3A0xe87f06f648cb2f8e!2sLa%20Grilladerie!5e0!3m2!1sfr!2sfr!4v1681398056286!5m2!1sfr!2sfr\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe>
+                
               </div>
               <div class=\"img-box\">
                 <img src=\"{{ asset('assets/images/client1.png') }}\" alt=\"\" class=\"box-img\">
@@ -653,13 +633,13 @@ class __TwigTemplate_5490fe0bffb49f9099cf3de2d58f477d extends Template
             <div class=\"box\">
               <div class=\"detail-box\">
                 <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam
+
                 </p>
                 <h6>
-                  Mike Hamell
+
                 </h6>
                 <p>
-                  magna aliqua
+
                 </p>
               </div>
               <div class=\"img-box\">

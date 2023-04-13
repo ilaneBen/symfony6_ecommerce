@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Texmexs index{% endblock %}
+
+{% block body %}
+    <h1>Texmexs index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Photo</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for texmex in texmexs %}
+            <tr>
+                <td>{{ texmex.id }}</td>
+                <td>{{ texmex.nom }}</td>
+                <td>{{ texmex.description }}</td>
+                <td>{{ texmex.prix }}</td>
+                <td>{{ texmex.photo }}</td>
+                <td>
+                    <a href="{{ path('app_texmexs_show', {'id': texmex.id}) }}">show</a>
+                    <a href="{{ path('app_texmexs_edit', {'id': texmex.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_texmexs_new') }}">Create new</a>
+{% endblock %}

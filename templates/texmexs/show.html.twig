@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Texmexs{% endblock %}
+
+{% block body %}
+    <h1>Texmexs</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ texmex.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ texmex.nom }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ texmex.description }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ texmex.prix }}</td>
+            </tr>
+            <tr>
+                <th>Photo</th>
+                <td>{{ texmex.photo }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_texmexs_index') }}">back to list</a>
+
+    <a href="{{ path('app_texmexs_edit', {'id': texmex.id}) }}">edit</a>
+
+    {{ include('texmexs/_delete_form.html.twig') }}
+{% endblock %}

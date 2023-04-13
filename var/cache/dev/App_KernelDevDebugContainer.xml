@@ -484,6 +484,10 @@
         <argument type="service" id=".service_locator.CshazM0.App\Controller\UserController"/>
       </call>
     </service>
+    <service id="App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true">
+      <tag name="doctrine.fixture.orm"/>
+    </service>
+    <service id="App\DataFixtures\UserFixtures" class="App\DataFixtures\UserFixtures" autowire="true" autoconfigure="true"/>
     <service id="App\Form\BurgersType" class="App\Form\BurgersType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -501,6 +505,10 @@
     </service>
     <service id="App\Form\UserType" class="App\Form\UserType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
+    </service>
+    <service id="App\Repository\AdminRepository" class="App\Repository\AdminRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\BurgersRepository" class="App\Repository\BurgersRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
@@ -536,6 +544,9 @@
     </service>
     <service id="App\Security\UserProvider" class="App\Security\UserProvider" autowire="true" autoconfigure="true"/>
     <service id="App\Service\JWTService" class="App\Service\JWTService" autowire="true" autoconfigure="true"/>
+    <service id="App\Service\MailService" class="App\Service\MailService" autowire="true" autoconfigure="true">
+      <argument type="service" id="mailer.mailer"/>
+    </service>
     <service id="App\Service\SendMailService" class="App\Service\SendMailService" autowire="true" autoconfigure="true">
       <argument type="service" id="mailer.mailer"/>
     </service>
@@ -4416,7 +4427,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.7FuP0FD"/>
+      <argument type="service" id=".service_locator.YwnaWDI"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -6674,7 +6685,12 @@
     <service id="doctrine.fixtures.loader" class="Doctrine\Bundle\FixturesBundle\Loader\SymfonyFixturesLoader">
       <argument type="service" id="service_container"/>
       <call method="addFixtures">
-        <argument type="collection"/>
+        <argument type="collection">
+          <argument type="collection">
+            <argument key="fixture" type="service" id="App\DataFixtures\AppFixtures"/>
+            <argument key="groups" type="collection"/>
+          </argument>
+        </argument>
       </call>
     </service>
     <service id="doctrine.fixtures.purger.orm_purger_factory" class="Doctrine\Bundle\FixturesBundle\Purger\ORMPurgerFactory">
@@ -6747,6 +6763,8 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\UserController" class="App\Controller\UserController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\BurgersType" class="App\Form\BurgersType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\BurgersType" class="App\Form\BurgersType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\OrdersType" class="App\Form\OrdersType" autowire="true" abstract="true"/>
@@ -6759,6 +6777,8 @@
     <service id=".abstract.instanceof.App\Form\TexmexsType" class="App\Form\TexmexsType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\UserType" class="App\Form\UserType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\UserType" class="App\Form\UserType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AdminRepository" class="App\Repository\AdminRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\AdminRepository" class="App\Repository\AdminRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\BurgersRepository" class="App\Repository\BurgersRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\BurgersRepository" class="App\Repository\BurgersRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ItemOrdersRepository" class="App\Repository\ItemOrdersRepository" autowire="true" abstract="true"/>
@@ -7278,12 +7298,6 @@
         <argument key="sandwichsRepository" type="service_closure" id="App\Repository\SandwichsRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.GpH0bTg" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="sandwichs" type="service_closure" id=".errored..service_locator.GpH0bTg.App\Entity\Sandwichs"/>
-      </argument>
-    </service>
     <service id=".service_locator.RzKltRg" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -7413,7 +7427,7 @@
         <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.I2xu_4R" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.NiqJx.L" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Admin\BurgersCrudController::autocomplete" type="service_closure" id=".service_locator.t9B7cZ4"/>
@@ -7485,7 +7499,7 @@
         <argument key="App\Controller\BurgersController::index" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\BurgersController::new" type="service_closure" id=".service_locator.x7wo5ew"/>
         <argument key="App\Controller\BurgersController::show" type="service_closure" id=".service_locator.u1lHVoe"/>
-        <argument key="App\Controller\CartController::add" type="service_closure" id=".service_locator.GpH0bTg"/>
+        <argument key="App\Controller\CartController::add" type="service_closure" id=".service_locator.RzKltRg"/>
         <argument key="App\Controller\CartController::delete" type="service_closure" id=".service_locator.RzKltRg"/>
         <argument key="App\Controller\CartController::index" type="service_closure" id=".service_locator.5hqoB0I"/>
         <argument key="App\Controller\CartController::remove" type="service_closure" id=".service_locator.RzKltRg"/>
@@ -7586,7 +7600,7 @@
         <argument key="App\Controller\BurgersController:index" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\BurgersController:new" type="service_closure" id=".service_locator.x7wo5ew"/>
         <argument key="App\Controller\BurgersController:show" type="service_closure" id=".service_locator.u1lHVoe"/>
-        <argument key="App\Controller\CartController:add" type="service_closure" id=".service_locator.GpH0bTg"/>
+        <argument key="App\Controller\CartController:add" type="service_closure" id=".service_locator.RzKltRg"/>
         <argument key="App\Controller\CartController:delete" type="service_closure" id=".service_locator.RzKltRg"/>
         <argument key="App\Controller\CartController:index" type="service_closure" id=".service_locator.5hqoB0I"/>
         <argument key="App\Controller\CartController:remove" type="service_closure" id=".service_locator.RzKltRg"/>
@@ -7908,9 +7922,10 @@
         <argument key="doctrine.orm.messenger.doctrine_schema_subscriber" type="service_closure" id="doctrine.orm.messenger.doctrine_schema_subscriber"/>
       </argument>
     </service>
-    <service id=".service_locator.7FuP0FD" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.YwnaWDI" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Repository\AdminRepository" type="service_closure" id="App\Repository\AdminRepository"/>
         <argument key="App\Repository\BurgersRepository" type="service_closure" id="App\Repository\BurgersRepository"/>
         <argument key="App\Repository\ItemOrdersRepository" type="service_closure" id="App\Repository\ItemOrdersRepository"/>
         <argument key="App\Repository\OrdersRepository" type="service_closure" id="App\Repository\OrdersRepository"/>
@@ -8617,12 +8632,12 @@
       <argument type="service" id="EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.I2xu_4R"/>
+      <argument type="service" id=".service_locator.NiqJx.L"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.I2xu_4R"/>
+      <argument type="service" id=".service_locator.NiqJx.L"/>
     </service>
     <service id="debug.traced.messenger.bus.default.inner" class="Symfony\Component\Messenger\MessageBus">
       <argument type="iterator">
@@ -8660,7 +8675,6 @@
     <service id=".errored..service_locator.t7nLwyX.Symfony\Component\Security\Core\User\UserInterface" class="Symfony\Component\Security\Core\User\UserInterface"/>
     <service id=".errored..service_locator.u1lHVoe.App\Entity\Burgers" class="App\Entity\Burgers"/>
     <service id=".errored..service_locator.H9BPYsm.App\Entity\Burgers" class="App\Entity\Burgers"/>
-    <service id=".errored..service_locator.GpH0bTg.App\Entity\Sandwichs" class="App\Entity\Sandwichs"/>
     <service id=".errored..service_locator.RzKltRg.App\Entity\Burgers" class="App\Entity\Burgers"/>
     <service id=".errored..service_locator.400NPhu.Doctrine\ORM\EntityManager" class="Doctrine\ORM\EntityManager"/>
     <service id=".errored..service_locator.kFQQBqT.App\Entity\Sandwichs" class="App\Entity\Sandwichs"/>
@@ -9638,7 +9652,7 @@
     <service id="SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface" alias="symfonycasts.verify_email.helper"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.7nzbL4K" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.I2xu_4R"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.NiqJx.L"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -9669,7 +9683,7 @@
     <service id=".service_locator.iYakSL7" alias=".service_locator.86wU1oC"/>
     <service id=".service_locator.yAqCzJV" alias=".service_locator.400NPhu"/>
     <service id=".service_locator.siLTv8S" alias=".service_locator.mMVerKR"/>
-    <service id=".service_locator.iHabSIX" alias=".service_locator.I2xu_4R"/>
+    <service id=".service_locator.KZK6UOq" alias=".service_locator.NiqJx.L"/>
     <service id=".service_locator.9XMoc9I" alias=".service_locator.kzegaci"/>
     <service id=".service_locator.WQf6g48" alias=".service_locator.p_RQUD_"/>
     <service id=".service_locator.XW18Svm" alias=".service_locator.TcKhdzh"/>
@@ -9740,7 +9754,6 @@
     <service id=".service_locator.Gk_ySBV" alias=".service_locator.u1lHVoe"/>
     <service id=".service_locator.8EZjamq" alias=".service_locator.H9BPYsm"/>
     <service id=".service_locator.ntf0Dqg" alias=".service_locator.5hqoB0I"/>
-    <service id=".service_locator.gHmH0vM" alias=".service_locator.GpH0bTg"/>
     <service id=".service_locator.XPqVq3a" alias=".service_locator.RzKltRg"/>
     <service id=".service_locator.bFXfnE6" alias=".service_locator.wmDynVr"/>
     <service id=".service_locator.pjbg7dL" alias=".service_locator.5PHgCSU"/>

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Texmexs{% endblock %}
+
+{% block body %}
+    <h1>Edit Texmexs</h1>
+
+    {{ include('texmexs/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_texmexs_index') }}">back to list</a>
+
+    {{ include('texmexs/_delete_form.html.twig') }}
+{% endblock %}

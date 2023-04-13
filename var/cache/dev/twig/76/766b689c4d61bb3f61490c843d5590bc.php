@@ -41,17 +41,18 @@ class __TwigTemplate_73380293a5dc981fb4e9ab8c16aafd73 extends Template
 
         // line 1
         echo "
-  <div class=\"hero_area\">
+  
 
     <!-- header section strats -->
 
 
-
+<div class=\"hero_area\">
 <header class=\"header_section\">
+
       <div class=\"container\">
         <nav class=\"navbar navbar-expand-lg custom_nav-container \">
           <a class=\"navbar-brand\" href=\"";
-        // line 11
+        // line 12
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_main");
         echo "\">
             <span>
@@ -67,73 +68,73 @@ class __TwigTemplate_73380293a5dc981fb4e9ab8c16aafd73 extends Template
             <ul class=\"navbar-nav  mx-auto \">
               <li class=\"nav-item\">
                 <a class=\"nav-link\" href=\"";
-        // line 24
+        // line 25
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_main");
         echo "\" >accueil </a>
               </li>
               <li class=\"nav-item active\">
                 <a class=\"nav-link\" href=";
-        // line 27
+        // line 28
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_menu");
         echo ">Menu <span class=\"sr-only\">(current)</span> </a>
               </li>
               <li class=\"nav-item\">
-                <a class=\"nav-link\" href=\"about.html\">Contact</a>
+                <a class=\"nav-link\" href=\"about.html\">Contacts</a>
+              </li>
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"about.html\">Click and Collect</a>
               </li>
               <div>
               ";
-        // line 33
-        if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 33, $this->source); })()), "user", [], "any", false, false, false, 33)) {
-            // line 34
+        // line 37
+        if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 37, $this->source); })()), "user", [], "any", false, false, false, 37)) {
+            // line 38
             echo "                 <li class=\"nav-item\">
               <a class=\"nav-link\" href=\"";
-            // line 35
+            // line 39
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("logout");
             echo "\" >Deconnexion </a>
               </li>
               ";
         } else {
-            // line 38
+            // line 42
             echo "              <li class=\"nav-item\">
               <a class=\"nav-link\" href=\"";
-            // line 39
+            // line 43
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
             echo "\" >Connexion </a>
               
               ";
         }
-        // line 42
+        // line 46
         echo "             </li>
              </div>
-              <li class=\"nav-item\">
-                <a class=\"nav-link\" href=\"book.html\">Book Table</a>
-              </li>
             </ul>
             <div class=\"user_option\">
             ";
-        // line 49
-        if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 49, $this->source); })()), "user", [], "any", false, false, false, 49)) {
-            // line 50
+        // line 50
+        if (twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 50, $this->source); })()), "user", [], "any", false, false, false, 50)) {
+            // line 51
             echo "               <a href= ";
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("profile_index");
             echo " class=\"user_link\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></a>
                <a class=\"cart_link\" href=\"";
-            // line 51
+            // line 52
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("cart_index");
             echo "\">
             ";
         } else {
-            // line 53
+            // line 54
             echo "            <a href= ";
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
             echo " class=\"user_link\"><i class=\"fa fa-user\" aria-hidden=\"true\"></i></a>
              <a class=\"cart_link\" href=\"";
-            // line 54
+            // line 55
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
             echo "\">
             ";
         }
-        // line 56
+        // line 57
         echo "         
              
                 
@@ -225,19 +226,20 @@ class __TwigTemplate_73380293a5dc981fb4e9ab8c16aafd73 extends Template
 
     public function getDebugInfo()
     {
-        return array (  137 => 56,  132 => 54,  127 => 53,  122 => 51,  117 => 50,  115 => 49,  106 => 42,  100 => 39,  97 => 38,  91 => 35,  88 => 34,  86 => 33,  77 => 27,  71 => 24,  55 => 11,  43 => 1,);
+        return array (  138 => 57,  133 => 55,  128 => 54,  123 => 52,  118 => 51,  116 => 50,  110 => 46,  104 => 43,  101 => 42,  95 => 39,  92 => 38,  90 => 37,  78 => 28,  72 => 25,  56 => 12,  43 => 1,);
     }
 
     public function getSourceContext()
     {
         return new Source("
-  <div class=\"hero_area\">
+  
 
     <!-- header section strats -->
 
 
-
+<div class=\"hero_area\">
 <header class=\"header_section\">
+
       <div class=\"container\">
         <nav class=\"navbar navbar-expand-lg custom_nav-container \">
           <a class=\"navbar-brand\" href=\"{{ path('app_main') }}\">
@@ -259,7 +261,10 @@ class __TwigTemplate_73380293a5dc981fb4e9ab8c16aafd73 extends Template
                 <a class=\"nav-link\" href={{ path('app_menu') }}>Menu <span class=\"sr-only\">(current)</span> </a>
               </li>
               <li class=\"nav-item\">
-                <a class=\"nav-link\" href=\"about.html\">Contact</a>
+                <a class=\"nav-link\" href=\"about.html\">Contacts</a>
+              </li>
+              <li class=\"nav-item\">
+                <a class=\"nav-link\" href=\"about.html\">Click and Collect</a>
               </li>
               <div>
               {% if app.user %}
@@ -273,9 +278,6 @@ class __TwigTemplate_73380293a5dc981fb4e9ab8c16aafd73 extends Template
               {% endif %}
              </li>
              </div>
-              <li class=\"nav-item\">
-                <a class=\"nav-link\" href=\"book.html\">Book Table</a>
-              </li>
             </ul>
             <div class=\"user_option\">
             {% if app.user %}

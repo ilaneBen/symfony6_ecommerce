@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Burgers{% endblock %}
+
+{% block body %}
+<section class='slider_section'>
+<div class="form">
+    <h1>Edit Burgers</h1>
+
+    {{ include('burgers/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a class='btn btn-danger' href="{{ path('app_burgers_index') }}">back to list</a>
+
+    {{ include('burgers/_delete_form.html.twig') }}
+</div>
+</section>
+{% endblock %}
+

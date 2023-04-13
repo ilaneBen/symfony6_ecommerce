@@ -1,0 +1,35 @@
+
+{% block title %}Burgers index{% endblock %}
+
+{% block body %}
+   
+    <h1 class='original mb-2'>Nos Burgers</h1>
+<section class="container">
+ 
+        {% for burger in burgers %}
+     <div class="form ">
+    <img src="{{ burger.photo }}" alt="Card image cap">
+    
+    <h3> {{ burger.nom }}</h3>
+    
+    <p> {{ burger.description }}</p>
+    <p> {{ burger.prix }}€</p>
+    
+    <p>
+        <a class='btn btn-danger' href="{{ path('cart_add', {'id': burger.id}) }}">Ajouter</a>
+        <a class='btn btn-danger' href="{{ path('app_burgers_show', {'id': burger.id}) }}">show</a>
+        <a class='btn btn-danger' href="{{ path('app_burgers_edit', {'id': burger.id}) }}">Modifier</a>
+    </p>
+   </div>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+    
+ <div class='card'>
+              <a class='btn btn-danger' href="{{ path('app_burgers_new') }}">Nouveau Burger</a>
+</div>
+</section>
+{% endblock %}
+{% extends 'base.html.twig' %}

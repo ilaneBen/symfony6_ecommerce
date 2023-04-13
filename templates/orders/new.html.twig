@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Orders{% endblock %}
+
+{% block body %}
+<section class='slider_section'>
+    <h1>Create new Orders</h1>
+
+    {{ include('orders/_form.html.twig') }}
+
+    <a href="{{ path('app_orders_index') }}">back to list</a>
+    </section>
+{% endblock %}

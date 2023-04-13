@@ -87,7 +87,7 @@ class __TwigTemplate_c9988d8b84cd51a136eeca9676642cb5 extends Template
         // line 5
         echo "   
     <h1 class='original mb-2'>Nos Burgers</h1>
-
+<section class=\"container\">
  
         ";
         // line 9
@@ -96,7 +96,7 @@ class __TwigTemplate_c9988d8b84cd51a136eeca9676642cb5 extends Template
         $context['_iterated'] = false;
         foreach ($context['_seq'] as $context["_key"] => $context["burger"]) {
             // line 10
-            echo "     <div class=\"form\">
+            echo "     <div class=\"form \">
     <img src=\"";
             // line 11
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["burger"], "photo", [], "any", false, false, false, 11), "html", null, true);
@@ -130,13 +130,12 @@ class __TwigTemplate_c9988d8b84cd51a136eeca9676642cb5 extends Template
             echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_burgers_edit", ["id" => twig_get_attribute($this->env, $this->source, $context["burger"], "id", [], "any", false, false, false, 21)]), "html", null, true);
             echo "\">Modifier</a>
     </p>
-    </div>
-   
+   </div>
         ";
             $context['_iterated'] = true;
         }
         if (!$context['_iterated']) {
-            // line 26
+            // line 25
             echo "            <tr>
                 <td colspan=\"6\">no records found</td>
             </tr>
@@ -145,14 +144,15 @@ class __TwigTemplate_c9988d8b84cd51a136eeca9676642cb5 extends Template
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['burger'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 30
+        // line 29
         echo "    
  <div class='card'>
               <a class='btn btn-danger' href=\"";
-        // line 32
+        // line 31
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_burgers_new");
         echo "\">Nouveau Burger</a>
 </div>
+</section>
 ";
         
         $__internal_6f47bbe9983af81f1e7450e9a3e3768f->leave($__internal_6f47bbe9983af81f1e7450e9a3e3768f_prof);
@@ -174,7 +174,7 @@ class __TwigTemplate_c9988d8b84cd51a136eeca9676642cb5 extends Template
 
     public function getDebugInfo()
     {
-        return array (  153 => 32,  149 => 30,  140 => 26,  130 => 21,  126 => 20,  122 => 19,  116 => 16,  112 => 15,  107 => 13,  102 => 11,  99 => 10,  94 => 9,  88 => 5,  78 => 4,  59 => 2,  36 => 35,);
+        return array (  152 => 31,  148 => 29,  139 => 25,  130 => 21,  126 => 20,  122 => 19,  116 => 16,  112 => 15,  107 => 13,  102 => 11,  99 => 10,  94 => 9,  88 => 5,  78 => 4,  59 => 2,  36 => 35,);
     }
 
     public function getSourceContext()
@@ -185,10 +185,10 @@ class __TwigTemplate_c9988d8b84cd51a136eeca9676642cb5 extends Template
 {% block body %}
    
     <h1 class='original mb-2'>Nos Burgers</h1>
-
+<section class=\"container\">
  
         {% for burger in burgers %}
-     <div class=\"form\">
+     <div class=\"form \">
     <img src=\"{{ burger.photo }}\" alt=\"Card image cap\">
     
     <h3> {{ burger.nom }}</h3>
@@ -201,8 +201,7 @@ class __TwigTemplate_c9988d8b84cd51a136eeca9676642cb5 extends Template
         <a class='btn btn-danger' href=\"{{ path('app_burgers_show', {'id': burger.id}) }}\">show</a>
         <a class='btn btn-danger' href=\"{{ path('app_burgers_edit', {'id': burger.id}) }}\">Modifier</a>
     </p>
-    </div>
-   
+   </div>
         {% else %}
             <tr>
                 <td colspan=\"6\">no records found</td>
@@ -212,6 +211,7 @@ class __TwigTemplate_c9988d8b84cd51a136eeca9676642cb5 extends Template
  <div class='card'>
               <a class='btn btn-danger' href=\"{{ path('app_burgers_new') }}\">Nouveau Burger</a>
 </div>
+</section>
 {% endblock %}
 {% extends 'base.html.twig' %}", "burgers/index.html.twig", "C:\\Users\\i\\symfony_site\\templates\\burgers\\index.html.twig");
     }

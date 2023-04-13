@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<section class='slider_section'>
+<div class="form1">
+    <h1>Votre panier</h1>
+  <table class='table'>
+  <thead class='text-dark'>
+  <th>Produit</th>
+  <th>prix</th>
+  <th>Quantité</th>
+  <th>total</th>
+  <th>Action</th>
+
+  </thead>
+  <tbody class= "text-light">
+      {% for element in datapanier %}
+        <tr>
+        <td>{{element.burger.nom}} </td>
+        <td>{{element.burger.prix}}€ </td>
+        <td>{{element.quantite}}</td>
+        <td>{{element.quantite * element.burger.prix}}€</td>
+        <td>
+        <a href="{{path('cart_add', {'id':element.burger.id}) }}" class='btn btn-primary'>+</a>
+        <a href="{{path('cart_remove', {'id':element.burger.id}) }}" class='btn btn-warning'>-</a>
+        <a href="{{path('cart_delete', {'id':element.burger.id}) }}" class='btn btn-danger'>Supprimer</a>
+        </td>
+        </tr>
+
+
+      {% else %}
+        <tr>
+        <td colspan='5' class='text-center'> votre panier est vide
+        </td>
+        </tr>
+      {% endfor %}
+  </tbody>
+  <tfoot>
+  <tr class='text-light'>
+     <td colspan="3">Total</td>
+     <td class="text-end">{{total}}€</td>
+     <td colspan="3"></td>
+  </tr>
+  </tfoot>
+  </table>
+  {% if app.user %}
+     <a href="{{path('app_checkout')}}" class="btn btn-primary mb-2">Commander</a>
+     {% else %}
+     <a class="btn btn-primary mb-2" href="{{ path('app_login') }}" >Commander </a>
+  {% endif %}
+  
+    </div>
+    </section>
+{% endblock %}
