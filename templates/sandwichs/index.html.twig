@@ -4,7 +4,7 @@
    
     <h1 class='original mb-2'>Nos Burgers</h1>
 
- 
+ <section class="container">
         {% for sandwich in sandwichs %}
      <div class="form">
     <img src="{{ sandwich.photo }}" alt="Card image cap">
@@ -26,7 +26,7 @@
                 <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
-    
+    </section>
  <div class='card'>
               <a class='btn btn-danger' href="{{ path('app_sandwichs_new') }}">Nouveau sandwich</a>
 </div>

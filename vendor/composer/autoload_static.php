@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit2120971496c42faee079d3823f8741dd
+class ComposerStaticInitef385b761796b131a9949abec28f928a
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -121,7 +121,9 @@ class ComposerStaticInit2120971496c42faee079d3823f8741dd
             'Symfony\\Bridge\\Monolog\\' => 23,
             'Symfony\\Bridge\\Doctrine\\' => 24,
             'SymfonyCasts\\Bundle\\VerifyEmail\\' => 32,
+            'Svg\\' => 4,
             'Stripe\\' => 7,
+            'Sabberworm\\CSS\\' => 15,
         ),
         'P' => 
         array (
@@ -148,6 +150,10 @@ class ComposerStaticInit2120971496c42faee079d3823f8741dd
         array (
             'Kelunik\\Certificate\\' => 20,
         ),
+        'F' => 
+        array (
+            'FontLib\\' => 8,
+        ),
         'E' => 
         array (
             'Egulias\\EmailValidator\\' => 23,
@@ -155,6 +161,7 @@ class ComposerStaticInit2120971496c42faee079d3823f8741dd
         ),
         'D' => 
         array (
+            'Dompdf\\' => 7,
             'Doctrine\\SqlFormatter\\' => 22,
             'Doctrine\\Persistence\\' => 21,
             'Doctrine\\ORM\\' => 13,
@@ -492,9 +499,17 @@ class ComposerStaticInit2120971496c42faee079d3823f8741dd
         array (
             0 => __DIR__ . '/..' . '/symfonycasts/verify-email-bundle/src',
         ),
+        'Svg\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phenx/php-svg-lib/src/Svg',
+        ),
         'Stripe\\' => 
         array (
             0 => __DIR__ . '/..' . '/stripe/stripe-php/lib',
+        ),
+        'Sabberworm\\CSS\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sabberworm/php-css-parser/src',
         ),
         'Psr\\Log\\' => 
         array (
@@ -542,13 +557,17 @@ class ComposerStaticInit2120971496c42faee079d3823f8741dd
         ),
         'League\\Uri\\' => 
         array (
-            0 => __DIR__ . '/..' . '/league/uri-interfaces/src',
-            1 => __DIR__ . '/..' . '/league/uri/src',
+            0 => __DIR__ . '/..' . '/league/uri/src',
+            1 => __DIR__ . '/..' . '/league/uri-interfaces/src',
             2 => __DIR__ . '/..' . '/league/uri-parser/src',
         ),
         'Kelunik\\Certificate\\' => 
         array (
             0 => __DIR__ . '/..' . '/kelunik/certificate/src',
+        ),
+        'FontLib\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phenx/php-font-lib/src/FontLib',
         ),
         'Egulias\\EmailValidator\\' => 
         array (
@@ -557,6 +576,10 @@ class ComposerStaticInit2120971496c42faee079d3823f8741dd
         'EasyCorp\\Bundle\\EasyAdminBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/easycorp/easyadmin-bundle/src',
+        ),
+        'Dompdf\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/dompdf/dompdf/src',
         ),
         'Doctrine\\SqlFormatter\\' => 
         array (
@@ -596,7 +619,7 @@ class ComposerStaticInit2120971496c42faee079d3823f8741dd
         ),
         'Doctrine\\Common\\DataFixtures\\' => 
         array (
-            0 => __DIR__ . '/..' . '/doctrine/data-fixtures/lib/Doctrine/Common/DataFixtures',
+            0 => __DIR__ . '/..' . '/doctrine/data-fixtures/src',
         ),
         'Doctrine\\Common\\Collections\\' => 
         array (
@@ -693,6 +716,7 @@ class ComposerStaticInit2120971496c42faee079d3823f8741dd
     public static $classMap = array (
         'Collator' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/Resources/stubs/Collator.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
+        'Dompdf\\Cpdf' => __DIR__ . '/..' . '/dompdf/dompdf/lib/Cpdf.php',
         'IntlDateFormatter' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/Resources/stubs/IntlDateFormatter.php',
         'Locale' => __DIR__ . '/..' . '/symfony/polyfill-intl-icu/Resources/stubs/Locale.php',
         'Normalizer' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/Resources/stubs/Normalizer.php',
@@ -1330,9 +1354,9 @@ class ComposerStaticInit2120971496c42faee079d3823f8741dd
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit2120971496c42faee079d3823f8741dd::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit2120971496c42faee079d3823f8741dd::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit2120971496c42faee079d3823f8741dd::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitef385b761796b131a9949abec28f928a::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitef385b761796b131a9949abec28f928a::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitef385b761796b131a9949abec28f928a::$classMap;
 
         }, null, ClassLoader::class);
     }

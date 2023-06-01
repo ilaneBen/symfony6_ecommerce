@@ -91,9 +91,8 @@ public function verifyUser($token, JWTService $jwt, UserRepository $UserReposito
     return $this->redirectToRoute('app_login');
 }
 #[Route('/Reverif', name: 'resend_verify')]
-public function resendVerif(JWTService $jwt, SendMailService $mail, UserRepository $UserRepository,EntityManager $em): Response
+public function resendVerif(JWTService $jwt, SendMailService $mail, User $user,EntityManager $em): Response
 {
-    $user = $this -> getUser();
 
     if(!$user){
         $this-> addFlash('danger', 'vous devez être connécté pour accéder a cette page');

@@ -250,6 +250,7 @@ $catalogue = new MessageCatalogue('uk', array (
     'exception.forbidden_action' => 'Дія не може бути виконана над цим елементом.',
     'exception.insufficient_entity_permission' => 'У вас немає дозволу на доступ до цього елемента.',
     'autocomplete.no-results-found' => 'Нічого не знайдено',
+    'autocomplete.no-more-results' => 'Більше немає результатів',
     'autocomplete.loading-more-results' => 'Завантаження інших результатів…',
   ),
   'VerifyEmailBundle' => 
@@ -368,6 +369,7 @@ $catalogueEn = new MessageCatalogue('en', array (
     'This value is not a valid CSS color.' => 'This value is not a valid CSS color.',
     'This value is not a valid CIDR notation.' => 'This value is not a valid CIDR notation.',
     'The value of the netmask should be between {{ min }} and {{ max }}.' => 'The value of the netmask should be between {{ min }} and {{ max }}.',
+    'The filename is too long. It should have {{ filename_max_length }} character or less.|The filename is too long. It should have {{ filename_max_length }} characters or less.' => 'The filename is too long. It should have {{ filename_max_length }} character or less.|The filename is too long. It should have {{ filename_max_length }} characters or less.',
     'This form should not contain extra fields.' => 'This form should not contain extra fields.',
     'The uploaded file was too large. Please try to upload a smaller file.' => 'The uploaded file was too large. Please try to upload a smaller file.',
     'The CSRF token is invalid. Please try to resubmit the form.' => 'The CSRF token is invalid. Please try to resubmit the form.',

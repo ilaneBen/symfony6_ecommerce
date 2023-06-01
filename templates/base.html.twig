@@ -25,9 +25,10 @@
         {% endblock %}
       {% include "includes/header.html.twig" %}
         {% block javascripts %} 
-        <script src={{"asset(assets/js/index.js)"}}></script>
+        {# <script src={{"asset(assets/js/index.js)"}}></script> #}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+        {% include '_partials/_flash.html.twig' %}
        
 
 

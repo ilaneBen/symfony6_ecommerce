@@ -30,6 +30,7 @@ return [
         '/sandwichs/new' => [[['_route' => 'app_sandwichs_new', '_controller' => 'App\\Controller\\SandwichsController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null]],
         '/logout' => [[['_route' => 'logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
+        '/oubli-mdp' => [[['_route' => 'app_mdp_oublier', '_controller' => 'App\\Controller\\SecurityController::mdpOublier'], null, null, null, false, false, null]],
         '/texmexs' => [[['_route' => 'app_texmexs_index', '_controller' => 'App\\Controller\\TexmexsController::index'], null, ['GET' => 0], null, true, false, null]],
         '/texmexs/new' => [[['_route' => 'app_texmexs_new', '_controller' => 'App\\Controller\\TexmexsController::new'], null, ['GET' => 0, 'POST' => 1], null, false, false, null]],
         '/user' => [[['_route' => 'app_user_index', '_controller' => 'App\\Controller\\UserController::index'], null, ['GET' => 0], null, true, false, null]],
@@ -74,15 +75,16 @@ return [
                     .'|/edit(*:417)'
                     .'|(*:425)'
                 .')'
+                .'|/oubli\\-mdp/([^/]++)(*:454)'
                 .'|/texmexs/([^/]++)(?'
-                    .'|(*:454)'
-                    .'|/edit(*:467)'
-                    .'|(*:475)'
+                    .'|(*:482)'
+                    .'|/edit(*:495)'
+                    .'|(*:503)'
                 .')'
                 .'|/user/([^/]++)(?'
-                    .'|(*:501)'
-                    .'|/edit(*:514)'
-                    .'|(*:522)'
+                    .'|(*:529)'
+                    .'|/edit(*:542)'
+                    .'|(*:550)'
                 .')'
             .')/?$}sDu',
     ],
@@ -106,12 +108,13 @@ return [
         404 => [[['_route' => 'app_sandwichs_show', '_controller' => 'App\\Controller\\SandwichsController::show'], ['id'], ['GET' => 0], null, false, true, null]],
         417 => [[['_route' => 'app_sandwichs_edit', '_controller' => 'App\\Controller\\SandwichsController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
         425 => [[['_route' => 'app_sandwichs_delete', '_controller' => 'App\\Controller\\SandwichsController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        454 => [[['_route' => 'app_texmexs_show', '_controller' => 'App\\Controller\\TexmexsController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        467 => [[['_route' => 'app_texmexs_edit', '_controller' => 'App\\Controller\\TexmexsController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        475 => [[['_route' => 'app_texmexs_delete', '_controller' => 'App\\Controller\\TexmexsController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
-        501 => [[['_route' => 'app_user_show', '_controller' => 'App\\Controller\\UserController::show'], ['id'], ['GET' => 0], null, false, true, null]],
-        514 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\UserController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
-        522 => [
+        454 => [[['_route' => 'reset_mdp', '_controller' => 'App\\Controller\\SecurityController::resetMdp'], ['token'], null, null, false, true, null]],
+        482 => [[['_route' => 'app_texmexs_show', '_controller' => 'App\\Controller\\TexmexsController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        495 => [[['_route' => 'app_texmexs_edit', '_controller' => 'App\\Controller\\TexmexsController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        503 => [[['_route' => 'app_texmexs_delete', '_controller' => 'App\\Controller\\TexmexsController::delete'], ['id'], ['POST' => 0], null, false, true, null]],
+        529 => [[['_route' => 'app_user_show', '_controller' => 'App\\Controller\\UserController::show'], ['id'], ['GET' => 0], null, false, true, null]],
+        542 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\UserController::edit'], ['id'], ['GET' => 0, 'POST' => 1], null, false, false, null]],
+        550 => [
             [['_route' => 'app_user_delete', '_controller' => 'App\\Controller\\UserController::delete'], ['id'], ['POST' => 0], null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

@@ -34,6 +34,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
+    #[ORM\Column(type:'string', length:100)]
+    private $resettoken;
+
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Orders::class, orphanRemoval: true)]
     private Collection $orders;
 
@@ -124,6 +127,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getResetToken():?string
+    {
+        return $this->resettoken;
+    }
+
+    public function setResetToken(?string $resettoken):self
+    {
+        $this->resettoken = $resettoken;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Orders>
      */
@@ -132,22 +147,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->orders;
     }
 
-    public function addOrder(Orders $order): self
+    public function addOrder(Orders $order, User $user): self
     {
+        
         if (!$this->orders->contains($order)) {
             $this->orders->add($order);
-            $order->setUser($this);
+            $order->$user->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeOrder(Orders $order): self
+    public function removeOrder(Orders $order, User $user): self
     {
         if ($this->orders->removeElement($order)) {
             // set the owning side to null (unless already changed)
-            if ($order->getUser() === $this) {
-                $order->setUser(null);
+            if ($order->$user->getUser() === $this) {
+                $order->$user->setUser(null);
             }
         }
 

@@ -4,24 +4,28 @@
 
 {% block body %}
     <h1>Burgers</h1>
-                
-              <div class="card" style="width: 25rem;";>
-  <img src="{{ burger.photo }}" alt="Card image cap">
-  <div >
-    <h5 >{{ burger.nom }}</h5>
-    <p >{{ burger.description }}</p>
+              
+        <div class="burger">
+  <div class="burger-image">
+    <img src="{{ burger.photo }}" alt="Burger Image">
+  </div>
+  <h3 class="burger-title">{{ burger.nom }}</h3>
+  <p class="burger-description">{{ burger.description }}</p>
+  <div class="burger-details">
+    <span class="burger-price">{{ burger.prix }}</span>
+    <a href="#" class="burger-order">Commander</a>
+  </div>
+
   
-                
-                <p>{{ burger.prix }}</p>
-               
-                <p>
+</div>   
+
                     <a class='btn btn-danger' href="{{ path('app_burgers_edit', {'id': burger.id}) }}">edit</a>
                 {{ include('burgers/_delete_form.html.twig') }}</p> 
                 <a class='btn btn-danger' href="{{ path('app_burgers_index') }}">back to list</a>
                 
-     </div>       
- 
-        
+           
+
+
    
 
 

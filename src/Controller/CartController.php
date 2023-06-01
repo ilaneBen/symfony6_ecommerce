@@ -5,9 +5,12 @@ namespace App\Controller;
 use App\Entity\Burgers;
 use App\Entity\Orders;
 use App\Entity\Sandwichs;
+use App\Entity\User;
 use App\Repository\BurgersRepository;
 use App\Repository\OrdersRepository;
 use App\Repository\SandwichsRepository;
+use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,22 +21,21 @@ use Symfony\Component\Routing\Annotation\Route;
 class CartController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(SessionInterface $session,SandwichsRepository $sandwichsRepository, BurgersRepository $burgersRepository, Request $request): Response
+    public function index(UserRepository $userRepository, EntityManagerInterface $entityManager, SessionInterface $session,SandwichsRepository $sandwichsRepository, BurgersRepository $burgersRepository, Request $request): Response
     {   $session = $request->getSession();
         $panier = $session ->get("panier",[]);
         $session-> set('panier', $panier);
         $_COOKIE = new Cookie('panier');
-
+        $user = $this->getUser();
 //on fabrique les données
  
         $datapanier = [];
         $total = 0;
 
         foreach($panier as $id => $quantite){
-            $burger = $burgersRepository-> find($id);
+            $burger = $entityManager->getRepository(Burgers::class)->find($id);
             $sandwich =  $sandwichsRepository->find($id);
             $datapanier[]=[
-                "sandwich" => $sandwich,
                 "burger"=> $burger,
                 "quantite" => $quantite
             ];
@@ -73,14 +75,13 @@ class CartController extends AbstractController
     }*/
 
     #[Route('/add/{id}', name: 'add')]
-    public function add(Burgers $burgers,Sandwichs $sandwichs, SessionInterface $session, Request $request): Response
+    public function add(Burgers $burgers, SessionInterface $session, Request $request): Response
     {
           //reupere le panier actuel
           $session = $request->getSession();
 
           $panier = $session->get("panier", []) ;
           $id = $burgers->getid();
-          
 
           if((!empty($panier[$id]))){
             $panier[$id]++;

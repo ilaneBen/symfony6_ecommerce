@@ -1,35 +1,41 @@
+{% extends 'base.html.twig' %}
 
 {% block title %}Burgers index{% endblock %}
 
 {% block body %}
-   
-    <h1 class='original mb-2'>Nos Burgers</h1>
-<section class="container">
- 
-        {% for burger in burgers %}
-     <div class="form ">
-    <img src="{{ burger.photo }}" alt="Card image cap">
-    
-    <h3> {{ burger.nom }}</h3>
-    
-    <p> {{ burger.description }}</p>
-    <p> {{ burger.prix }}€</p>
-    
-    <p>
-        <a class='btn btn-danger' href="{{ path('cart_add', {'id': burger.id}) }}">Ajouter</a>
-        <a class='btn btn-danger' href="{{ path('app_burgers_show', {'id': burger.id}) }}">show</a>
-        <a class='btn btn-danger' href="{{ path('app_burgers_edit', {'id': burger.id}) }}">Modifier</a>
-    </p>
-   </div>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-    
- <div class='card'>
-              <a class='btn btn-danger' href="{{ path('app_burgers_new') }}">Nouveau Burger</a>
-</div>
-</section>
+    <h1 class='original'>Nos Burgers</h1>
+
+    <section class="product_section layout_padding">
+        <div class="container1" style="display: flex; flex-wrap: wrap;">
+            {% for burger in burgers %}
+                <div class="col-sm-3 col-md-2 col-lg-4" style="flex: 1; margin: 10px;">
+                    <div class="box">
+                        <div class="option_container">
+                            <div class="options">
+                                <a href="{{ path('app_burgers_show', {'id': burger.id}) }}" class="option1">
+                                    {{ burger.description }}
+                                </a>
+                                <a href="{{ path('cart_add', {'id': burger.id}) }}" class="option2">
+                                    Ajouter au panier
+                                </a>
+                            </div>
+                        </div>
+                        <div class="img-box">
+                            <img src="{{ burger.photo }}" alt="">
+                        </div>
+                        <div class="detail-box">
+                            <h5 class='original'>{{ burger.nom }}</h5>
+                            <h5 class='original'>{{ burger.prix }}€</h5>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div>
+                    <p>Aucun enregistrement trouvé.</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <a class="btn btn-danger" href="{{ path('app_burgers_new') }}">Nouveau Burger</a>
+    </section>
 {% endblock %}
-{% extends 'base.html.twig' %}

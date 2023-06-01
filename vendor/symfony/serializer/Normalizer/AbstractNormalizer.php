@@ -331,8 +331,8 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
             $params = [];
             foreach ($constructorParameters as $constructorParameter) {
                 $paramName = $constructorParameter->name;
+                $attributeContext = $this->getAttributeDenormalizationContext($class, $paramName, $context);
                 $key = $this->nameConverter ? $this->nameConverter->normalize($paramName, $class, $format, $context) : $paramName;
-                $attributeContext = $this->getAttributeDenormalizationContext($class, $key, $context);
 
                 $allowed = false === $allowedAttributes || \in_array($paramName, $allowedAttributes);
                 $ignored = !$this->isAllowedAttribute($class, $paramName, $format, $context);
@@ -343,8 +343,8 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
                         }
 
                         $variadicParameters = [];
-                        foreach ($data[$paramName] as $parameterData) {
-                            $variadicParameters[] = $this->denormalizeParameter($reflectionClass, $constructorParameter, $paramName, $parameterData, $attributeContext, $format);
+                        foreach ($data[$paramName] as $parameterKey => $parameterData) {
+                            $variadicParameters[$parameterKey] = $this->denormalizeParameter($reflectionClass, $constructorParameter, $paramName, $parameterData, $attributeContext, $format);
                         }
 
                         $params = array_merge($params, $variadicParameters);
@@ -398,7 +398,15 @@ abstract class AbstractNormalizer implements NormalizerInterface, DenormalizerIn
             }
 
             if ($constructor->isConstructor()) {
-                return $reflectionClass->newInstanceArgs($params);
+                try {
+                    return $reflectionClass->newInstanceArgs($params);
+                } catch (\TypeError $e) {
+                    if (!isset($context['not_normalizable_value_exceptions'])) {
+                        throw $e;
+                    }
+
+                    return $reflectionClass->newInstanceWithoutConstructor();
+                }
             } else {
                 return $constructor->invokeArgs(null, $params);
             }

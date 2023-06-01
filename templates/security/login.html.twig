@@ -14,11 +14,16 @@
             You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
-     
-    <section class='slider_section'>
-    <div class='form'>
+     <div id="form">
+<div class="logo">
+<img src="{{ asset('assets/images/l.png') }}" alt=""></a>
 
-    <h3>Identifiez-vous</h3>
+</div>
+
+
+    <h3 class='mb-4'>Identifiez-vous</h3>
+    <div class= "col mb-3">
+ <div class= "form-group">
     <label for="inputEmail">E-mail</label>
     <input type="email" value="{{ last_username }}" name="email" placeholder='e-mail' id="inputEmail" class="form-control" autocomplete="email" required autofocus>
     <label for="inputPassword">Mot de passe</label>
@@ -26,9 +31,11 @@
     <button type="hidden" name="_csrf_token" class= 'btn btn-primary mt-2'
 value="{{ csrf_token('authenticate') }}">S'identifier</button>
     <a class= 'btn btn-primary mt-2' href="{{ path('app_register') }}">S'enregistrer</a>
+    <a href={{ path('app_mdp_oublier') }}>mot de passe oublié?</a>
+    </div>
+    </div>
     
 
-    </section>
     </div>
     {#
         Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.

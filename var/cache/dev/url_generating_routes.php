@@ -44,6 +44,8 @@ return [
     'app_sandwichs_delete' => [['id'], ['_controller' => 'App\\Controller\\SandwichsController::delete'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/sandwichs']], [], [], []],
     'app_login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/login']], [], [], []],
     'logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], [], []],
+    'app_mdp_oublier' => [[], ['_controller' => 'App\\Controller\\SecurityController::mdpOublier'], [], [['text', '/oubli-mdp']], [], [], []],
+    'reset_mdp' => [['token'], ['_controller' => 'App\\Controller\\SecurityController::resetMdp'], [], [['variable', '/', '[^/]++', 'token', true], ['text', '/oubli-mdp']], [], [], []],
     'app_texmexs_index' => [[], ['_controller' => 'App\\Controller\\TexmexsController::index'], [], [['text', '/texmexs/']], [], [], []],
     'app_texmexs_new' => [[], ['_controller' => 'App\\Controller\\TexmexsController::new'], [], [['text', '/texmexs/new']], [], [], []],
     'app_texmexs_show' => [['id'], ['_controller' => 'App\\Controller\\TexmexsController::show'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/texmexs']], [], [], []],

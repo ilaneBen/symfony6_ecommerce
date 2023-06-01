@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rénitialisation de mot de passe!{% endblock %}
+
+{% block body %}
+<section>
+  <div id="form">
+<div class="logo">
+<img src="{{ asset('assets/images/l.png') }}" alt=""></a>
+
+</div>
+
+
+    <h1>Rénitialisation de mot de passe</h1>
+    <div class= "col mb-3">
+ <div class= "form-group">
+            
+
+            {{ form_start(MdpForm) }}
+            {{ form_row(MdpForm.plainPassword) }}
+         <button type="submit" class="btn btn-primary mt-2">rennisialiser le mot de passe</button>
+
+            {{ form_end(MdpForm) }}
+        </div>
+    </div>
+    </div>
+</section>
+{% endblock %}

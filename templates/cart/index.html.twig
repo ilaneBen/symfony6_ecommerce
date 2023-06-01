@@ -13,6 +13,12 @@
 
   </thead>
   <tbody class= "text-light">
+  
+     
+       
+            
+
+  
       {% for element in datapanier %}
         <tr>
         <td>{{element.burger.nom}} </td>
@@ -47,7 +53,7 @@
      {% else %}
      <a class="btn btn-primary mb-2" href="{{ path('app_login') }}" >Commander </a>
   {% endif %}
-  
+
     </div>
     </section>
 {% endblock %}

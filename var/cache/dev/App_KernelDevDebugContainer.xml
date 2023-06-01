@@ -135,7 +135,7 @@
       <parameter key="cookie_samesite">lax</parameter>
       <parameter key="gc_probability">1</parameter>
     </parameter>
-    <parameter key="session.save_path">C:\Users\i\symfony_site\var\cache\dev/sessions</parameter>
+    <parameter key="session.save_path">null</parameter>
     <parameter key="session.metadata.update_threshold">0</parameter>
     <parameter key="form.type_extension.csrf.enabled">true</parameter>
     <parameter key="form.type_extension.csrf.field_name">_token</parameter>
@@ -484,10 +484,6 @@
         <argument type="service" id=".service_locator.CshazM0.App\Controller\UserController"/>
       </call>
     </service>
-    <service id="App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true">
-      <tag name="doctrine.fixture.orm"/>
-    </service>
-    <service id="App\DataFixtures\UserFixtures" class="App\DataFixtures\UserFixtures" autowire="true" autoconfigure="true"/>
     <service id="App\Form\BurgersType" class="App\Form\BurgersType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
@@ -495,6 +491,12 @@
       <tag name="form.type"/>
     </service>
     <service id="App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\ResetMdpFormType" class="App\Form\ResetMdpFormType" autowire="true" autoconfigure="true">
+      <tag name="form.type"/>
+    </service>
+    <service id="App\Form\ResetMdpRequestFormType" class="App\Form\ResetMdpRequestFormType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
     <service id="App\Form\SandwichsType" class="App\Form\SandwichsType" autowire="true" autoconfigure="true">
@@ -1387,6 +1389,8 @@
         <argument>App\Form\BurgersType</argument>
         <argument>App\Form\OrdersType</argument>
         <argument>App\Form\RegistrationFormType</argument>
+        <argument>App\Form\ResetMdpFormType</argument>
+        <argument>App\Form\ResetMdpRequestFormType</argument>
         <argument>App\Form\SandwichsType</argument>
         <argument>App\Form\TexmexsType</argument>
         <argument>App\Form\UserType</argument>
@@ -2342,6 +2346,65 @@
     <service id="translation.extractor.visitor.constraint" class="Symfony\Component\Translation\Extractor\Visitor\ConstraintVisitor">
       <tag name="translation.extractor.visitor"/>
       <argument type="collection">
+        <argument>All</argument>
+        <argument>AtLeastOneOf</argument>
+        <argument>Bic</argument>
+        <argument>Blank</argument>
+        <argument>Callback</argument>
+        <argument>CardScheme</argument>
+        <argument>Choice</argument>
+        <argument>Cidr</argument>
+        <argument>Collection</argument>
+        <argument>Compound</argument>
+        <argument>Count</argument>
+        <argument>Country</argument>
+        <argument>CssColor</argument>
+        <argument>Currency</argument>
+        <argument>DateTime</argument>
+        <argument>Date</argument>
+        <argument>DivisibleBy</argument>
+        <argument>Email</argument>
+        <argument>EqualTo</argument>
+        <argument>ExpressionSyntax</argument>
+        <argument>Expression</argument>
+        <argument>File</argument>
+        <argument>GreaterThanOrEqual</argument>
+        <argument>GreaterThan</argument>
+        <argument>Hostname</argument>
+        <argument>Iban</argument>
+        <argument>IdenticalTo</argument>
+        <argument>Image</argument>
+        <argument>Ip</argument>
+        <argument>IsFalse</argument>
+        <argument>IsNull</argument>
+        <argument>IsTrue</argument>
+        <argument>Isbn</argument>
+        <argument>Isin</argument>
+        <argument>Issn</argument>
+        <argument>Json</argument>
+        <argument>Language</argument>
+        <argument>Length</argument>
+        <argument>LessThanOrEqual</argument>
+        <argument>LessThan</argument>
+        <argument>Locale</argument>
+        <argument>Luhn</argument>
+        <argument>NotBlank</argument>
+        <argument>NotCompromisedPassword</argument>
+        <argument>NotEqualTo</argument>
+        <argument>NotIdenticalTo</argument>
+        <argument>NotNull</argument>
+        <argument>Range</argument>
+        <argument>Regex</argument>
+        <argument>Sequentially</argument>
+        <argument>Time</argument>
+        <argument>Timezone</argument>
+        <argument>Type</argument>
+        <argument>Ulid</argument>
+        <argument>Unique</argument>
+        <argument>Url</argument>
+        <argument>Uuid</argument>
+        <argument>Valid</argument>
+        <argument>When</argument>
         <argument>Expression</argument>
         <argument>Email</argument>
         <argument>NotCompromisedPassword</argument>
@@ -3434,7 +3497,7 @@
     </service>
     <service id="session.storage.factory.native" class="Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorageFactory">
       <argument>%session.storage.options%</argument>
-      <argument>null</argument>
+      <argument type="service" id="session.handler.native"/>
       <argument type="service">
         <service class="Symfony\Component\HttpFoundation\Session\Storage\MetadataBag">
           <argument>_sf2_meta</argument>
@@ -3444,7 +3507,7 @@
       <argument>true</argument>
     </service>
     <service id="session.storage.factory.php_bridge" class="Symfony\Component\HttpFoundation\Session\Storage\PhpBridgeSessionStorageFactory">
-      <argument>null</argument>
+      <argument type="service" id="session.handler.native"/>
       <argument type="service">
         <service class="Symfony\Component\HttpFoundation\Session\Storage\MetadataBag">
           <argument>_sf2_meta</argument>
@@ -3463,10 +3526,15 @@
         </service>
       </argument>
     </service>
+    <service id="session.handler.native" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\StrictSessionHandler">
+      <argument type="service">
+        <service class="SessionHandler"/>
+      </argument>
+    </service>
     <service id="session.handler.native_file" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\StrictSessionHandler">
       <argument type="service">
         <service class="Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler">
-          <argument>C:\Users\i\symfony_site\var\cache\dev/sessions</argument>
+          <argument>null</argument>
         </service>
       </argument>
     </service>
@@ -3517,7 +3585,7 @@
       <argument type="service" id="form.registry"/>
     </service>
     <service id="form.extension" class="Symfony\Component\Form\Extension\DependencyInjection\DependencyInjectionExtension">
-      <argument type="service" id=".service_locator.p_RQUD_"/>
+      <argument type="service" id=".service_locator.am2LjQI"/>
       <argument type="collection">
         <argument key="Symfony\Component\Form\Extension\Core\Type\FormType" type="iterator">
           <argument type="service" id="form.type_extension.form.transformation_failure_handling"/>
@@ -3668,6 +3736,245 @@
     <service id="validator.validator_factory" class="Symfony\Component\Validator\ContainerConstraintValidatorFactory">
       <argument type="service" id=".service_locator.kzegaci"/>
     </service>
+    <service id="Symfony\Component\Validator\Constraints\ExpressionLanguageSyntaxValidator" class="Symfony\Component\Validator\Constraints\ExpressionLanguageSyntaxValidator" abstract="true">
+      <tag name="container.excluded" source="in &quot;config/validator.php&quot;"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\AllValidator" class="Symfony\Component\Validator\Constraints\AllValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\AtLeastOneOfValidator" class="Symfony\Component\Validator\Constraints\AtLeastOneOfValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\BicValidator" class="Symfony\Component\Validator\Constraints\BicValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\BlankValidator" class="Symfony\Component\Validator\Constraints\BlankValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\CallbackValidator" class="Symfony\Component\Validator\Constraints\CallbackValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\CardSchemeValidator" class="Symfony\Component\Validator\Constraints\CardSchemeValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\ChoiceValidator" class="Symfony\Component\Validator\Constraints\ChoiceValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\CidrValidator" class="Symfony\Component\Validator\Constraints\CidrValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\CollectionValidator" class="Symfony\Component\Validator\Constraints\CollectionValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\CompoundValidator" class="Symfony\Component\Validator\Constraints\CompoundValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\CountValidator" class="Symfony\Component\Validator\Constraints\CountValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\CountryValidator" class="Symfony\Component\Validator\Constraints\CountryValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\CssColorValidator" class="Symfony\Component\Validator\Constraints\CssColorValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\CurrencyValidator" class="Symfony\Component\Validator\Constraints\CurrencyValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\DateTimeValidator" class="Symfony\Component\Validator\Constraints\DateTimeValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\DateValidator" class="Symfony\Component\Validator\Constraints\DateValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\DivisibleByValidator" class="Symfony\Component\Validator\Constraints\DivisibleByValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\EmailValidator" class="Symfony\Component\Validator\Constraints\EmailValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\EqualToValidator" class="Symfony\Component\Validator\Constraints\EqualToValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\ExpressionSyntaxValidator" class="Symfony\Component\Validator\Constraints\ExpressionSyntaxValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\ExpressionValidator" class="Symfony\Component\Validator\Constraints\ExpressionValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\FileValidator" class="Symfony\Component\Validator\Constraints\FileValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\GreaterThanOrEqualValidator" class="Symfony\Component\Validator\Constraints\GreaterThanOrEqualValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\GreaterThanValidator" class="Symfony\Component\Validator\Constraints\GreaterThanValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\HostnameValidator" class="Symfony\Component\Validator\Constraints\HostnameValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\IbanValidator" class="Symfony\Component\Validator\Constraints\IbanValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\IdenticalToValidator" class="Symfony\Component\Validator\Constraints\IdenticalToValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\ImageValidator" class="Symfony\Component\Validator\Constraints\ImageValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\IpValidator" class="Symfony\Component\Validator\Constraints\IpValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\IsFalseValidator" class="Symfony\Component\Validator\Constraints\IsFalseValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\IsNullValidator" class="Symfony\Component\Validator\Constraints\IsNullValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\IsTrueValidator" class="Symfony\Component\Validator\Constraints\IsTrueValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\IsbnValidator" class="Symfony\Component\Validator\Constraints\IsbnValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\IsinValidator" class="Symfony\Component\Validator\Constraints\IsinValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\IssnValidator" class="Symfony\Component\Validator\Constraints\IssnValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\JsonValidator" class="Symfony\Component\Validator\Constraints\JsonValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\LanguageValidator" class="Symfony\Component\Validator\Constraints\LanguageValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\LengthValidator" class="Symfony\Component\Validator\Constraints\LengthValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\LessThanOrEqualValidator" class="Symfony\Component\Validator\Constraints\LessThanOrEqualValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\LessThanValidator" class="Symfony\Component\Validator\Constraints\LessThanValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\LocaleValidator" class="Symfony\Component\Validator\Constraints\LocaleValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\LuhnValidator" class="Symfony\Component\Validator\Constraints\LuhnValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\NotBlankValidator" class="Symfony\Component\Validator\Constraints\NotBlankValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\NotCompromisedPasswordValidator" class="Symfony\Component\Validator\Constraints\NotCompromisedPasswordValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\NotEqualToValidator" class="Symfony\Component\Validator\Constraints\NotEqualToValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\NotIdenticalToValidator" class="Symfony\Component\Validator\Constraints\NotIdenticalToValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\NotNullValidator" class="Symfony\Component\Validator\Constraints\NotNullValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\RangeValidator" class="Symfony\Component\Validator\Constraints\RangeValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\RegexValidator" class="Symfony\Component\Validator\Constraints\RegexValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\SequentiallyValidator" class="Symfony\Component\Validator\Constraints\SequentiallyValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\TimeValidator" class="Symfony\Component\Validator\Constraints\TimeValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\TimezoneValidator" class="Symfony\Component\Validator\Constraints\TimezoneValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\TypeValidator" class="Symfony\Component\Validator\Constraints\TypeValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\UlidValidator" class="Symfony\Component\Validator\Constraints\UlidValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\UniqueValidator" class="Symfony\Component\Validator\Constraints\UniqueValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\UrlValidator" class="Symfony\Component\Validator\Constraints\UrlValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\UuidValidator" class="Symfony\Component\Validator\Constraints\UuidValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\ValidValidator" class="Symfony\Component\Validator\Constraints\ValidValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
+    <service id="Symfony\Component\Validator\Constraints\WhenValidator" class="Symfony\Component\Validator\Constraints\WhenValidator" abstract="true">
+      <tag name="container.excluded"/>
+      <tag name="validator.constraint_validator"/>
+    </service>
     <service id="validator.expression" class="Symfony\Component\Validator\Constraints\ExpressionValidator">
       <tag name="validator.constraint_validator" alias="validator.expression"/>
       <argument type="service" id="validator.expression_language" on-invalid="null"/>
@@ -3681,18 +3988,18 @@
       <argument type="service" id="cache.validator_expression_language.recorder_inner"/>
     </service>
     <service id="validator.email" class="Symfony\Component\Validator\Constraints\EmailValidator">
-      <tag name="validator.constraint_validator" alias="Symfony\Component\Validator\Constraints\EmailValidator"/>
+      <tag name="validator.constraint_validator"/>
       <argument>html5</argument>
     </service>
     <service id="validator.not_compromised_password" class="Symfony\Component\Validator\Constraints\NotCompromisedPasswordValidator">
-      <tag name="validator.constraint_validator" alias="Symfony\Component\Validator\Constraints\NotCompromisedPasswordValidator"/>
+      <tag name="validator.constraint_validator"/>
       <argument type="service" id=".debug.http_client" on-invalid="null"/>
       <argument>UTF-8</argument>
       <argument>true</argument>
       <argument>null</argument>
     </service>
     <service id="validator.when" class="Symfony\Component\Validator\Constraints\WhenValidator">
-      <tag name="validator.constraint_validator" alias="Symfony\Component\Validator\Constraints\WhenValidator"/>
+      <tag name="validator.constraint_validator"/>
       <argument type="service" id="validator.expression_language" on-invalid="null"/>
     </service>
     <service id="validator.property_info_loader" class="Symfony\Component\Validator\Mapping\Loader\PropertyInfoLoader">
@@ -3770,7 +4077,8 @@
       <tag name="kernel.reset" method="reset"/>
     </service>
     <service id="messenger.transport.sqs.factory" class="Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\AmazonSqsTransportFactory">
-      <argument type="service" id="monolog.logger" on-invalid="ignore"/>
+      <tag name="monolog.logger" channel="messenger"/>
+      <argument type="service" id="monolog.logger.messenger" on-invalid="ignore"/>
     </service>
     <service id="messenger.transport.beanstalkd.factory" class="Symfony\Component\Messenger\Bridge\Beanstalkd\Transport\BeanstalkdTransportFactory"/>
     <service id="messenger.retry_strategy_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -3814,7 +4122,8 @@
     </service>
     <service id="messenger.listener.stop_worker_on_sigterm_signal_listener" class="Symfony\Component\Messenger\EventListener\StopWorkerOnSigtermSignalListener">
       <tag name="kernel.event_subscriber"/>
-      <argument type="service" id="monolog.logger" on-invalid="ignore"/>
+      <tag name="monolog.logger" channel="messenger"/>
+      <argument type="service" id="monolog.logger.messenger" on-invalid="ignore"/>
     </service>
     <service id="messenger.listener.stop_worker_on_stop_exception_listener" class="Symfony\Component\Messenger\EventListener\StopWorkerOnCustomStopExceptionListener">
       <tag name="kernel.event_subscriber"/>
@@ -6407,6 +6716,7 @@
     <service id="EasyCorp\Bundle\EasyAdminBundle\Twig\EasyAdminTwigExtension" class="EasyCorp\Bundle\EasyAdminBundle\Twig\EasyAdminTwigExtension">
       <tag name="twig.extension"/>
       <argument type="service" id="service_locator_EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator"/>
+      <argument type="service" id="EasyCorp\Bundle\EasyAdminBundle\Provider\AdminContextProvider"/>
       <argument type="service" id="security.csrf.token_manager" on-invalid="null"/>
     </service>
     <service id="EasyCorp\Bundle\EasyAdminBundle\Form\Extension\EaCrudFormTypeExtension" class="EasyCorp\Bundle\EasyAdminBundle\Form\Extension\EaCrudFormTypeExtension">
@@ -6432,7 +6742,6 @@
       <argument type="service" id="debug.controller_resolver"/>
       <argument type="service" id="router.default"/>
       <argument type="service" id="router.default"/>
-      <argument type="service" id="twig"/>
     </service>
     <service id="EasyCorp\Bundle\EasyAdminBundle\Factory\ControllerFactory" class="EasyCorp\Bundle\EasyAdminBundle\Factory\ControllerFactory">
       <argument type="service" id="debug.controller_resolver"/>
@@ -6685,12 +6994,7 @@
     <service id="doctrine.fixtures.loader" class="Doctrine\Bundle\FixturesBundle\Loader\SymfonyFixturesLoader">
       <argument type="service" id="service_container"/>
       <call method="addFixtures">
-        <argument type="collection">
-          <argument type="collection">
-            <argument key="fixture" type="service" id="App\DataFixtures\AppFixtures"/>
-            <argument key="groups" type="collection"/>
-          </argument>
-        </argument>
+        <argument type="collection"/>
       </call>
     </service>
     <service id="doctrine.fixtures.purger.orm_purger_factory" class="Doctrine\Bundle\FixturesBundle\Purger\ORMPurgerFactory">
@@ -6763,14 +7067,16 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\UserController" class="App\Controller\UserController" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\BurgersType" class="App\Form\BurgersType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\BurgersType" class="App\Form\BurgersType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\OrdersType" class="App\Form\OrdersType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\OrdersType" class="App\Form\OrdersType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ResetMdpFormType" class="App\Form\ResetMdpFormType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\ResetMdpFormType" class="App\Form\ResetMdpFormType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\ResetMdpRequestFormType" class="App\Form\ResetMdpRequestFormType" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Form\ResetMdpRequestFormType" class="App\Form\ResetMdpRequestFormType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\SandwichsType" class="App\Form\SandwichsType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\SandwichsType" class="App\Form\SandwichsType" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\TexmexsType" class="App\Form\TexmexsType" autowire="true" abstract="true"/>
@@ -7291,11 +7597,13 @@
         <argument key="burgersRepository" type="service_closure" id="App\Repository\BurgersRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.5hqoB0I" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.AImM1L4" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="burgersRepository" type="service_closure" id="App\Repository\BurgersRepository"/>
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
         <argument key="sandwichsRepository" type="service_closure" id="App\Repository\SandwichsRepository"/>
+        <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>
     </service>
     <service id=".service_locator.RzKltRg" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -7304,12 +7612,11 @@
         <argument key="burgers" type="service_closure" id=".errored..service_locator.RzKltRg.App\Entity\Burgers"/>
       </argument>
     </service>
-    <service id=".service_locator.wmDynVr" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.w5FJ8Cl" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="burgersRepository" type="service_closure" id="App\Repository\BurgersRepository"/>
         <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
-        <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>
     </service>
     <service id=".service_locator.5PHgCSU" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -7348,13 +7655,13 @@
         <argument key="jwt" type="service_closure" id="App\Service\JWTService"/>
       </argument>
     </service>
-    <service id=".service_locator.400NPhu" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.xVvLpJU" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="UserRepository" type="service_closure" id="App\Repository\UserRepository"/>
-        <argument key="em" type="service_closure" id=".errored..service_locator.400NPhu.Doctrine\ORM\EntityManager"/>
+        <argument key="em" type="service_closure" id=".errored..service_locator.xVvLpJU.Doctrine\ORM\EntityManager"/>
         <argument key="jwt" type="service_closure" id="App\Service\JWTService"/>
         <argument key="mail" type="service_closure" id="App\Service\SendMailService"/>
+        <argument key="user" type="service_closure" id=".errored..service_locator.xVvLpJU.App\Entity\User"/>
       </argument>
     </service>
     <service id=".service_locator.IC38Egd" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -7380,6 +7687,23 @@
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="authenticationUtils" type="service_closure" id="security.authentication_utils"/>
+      </argument>
+    </service>
+    <service id=".service_locator.uj_8cyE" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManagerInterface" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="mail" type="service_closure" id="App\Service\SendMailService"/>
+        <argument key="tokenGeneratorInterface" type="service_closure" id="security.csrf.token_generator"/>
+        <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.9_v1Zwc" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="PasswordHasher" type="service_closure" id="security.user_password_hasher"/>
+        <argument key="entityManagerInterface" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>
     </service>
     <service id=".service_locator.QbEmnbE" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -7427,7 +7751,7 @@
         <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.NiqJx.L" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.iQsG4v_" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\Admin\BurgersCrudController::autocomplete" type="service_closure" id=".service_locator.t9B7cZ4"/>
@@ -7501,15 +7825,15 @@
         <argument key="App\Controller\BurgersController::show" type="service_closure" id=".service_locator.u1lHVoe"/>
         <argument key="App\Controller\CartController::add" type="service_closure" id=".service_locator.RzKltRg"/>
         <argument key="App\Controller\CartController::delete" type="service_closure" id=".service_locator.RzKltRg"/>
-        <argument key="App\Controller\CartController::index" type="service_closure" id=".service_locator.5hqoB0I"/>
+        <argument key="App\Controller\CartController::index" type="service_closure" id=".service_locator.AImM1L4"/>
         <argument key="App\Controller\CartController::remove" type="service_closure" id=".service_locator.RzKltRg"/>
-        <argument key="App\Controller\OrdersController::index" type="service_closure" id=".service_locator.wmDynVr"/>
+        <argument key="App\Controller\OrdersController::index" type="service_closure" id=".service_locator.w5FJ8Cl"/>
         <argument key="App\Controller\OrdersController::success" type="service_closure" id=".service_locator.5PHgCSU"/>
         <argument key="App\Controller\ProfilController::index" type="service_closure" id=".service_locator.9kKwU2t"/>
         <argument key="App\Controller\RecapController::index" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\RecapController::new" type="service_closure" id=".service_locator.V71r_w4"/>
         <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.wthfEq8"/>
-        <argument key="App\Controller\RegistrationController::resendVerif" type="service_closure" id=".service_locator.400NPhu"/>
+        <argument key="App\Controller\RegistrationController::resendVerif" type="service_closure" id=".service_locator.xVvLpJU"/>
         <argument key="App\Controller\RegistrationController::verifyUser" type="service_closure" id=".service_locator.86wU1oC"/>
         <argument key="App\Controller\SandwichsController::delete" type="service_closure" id=".service_locator.uT3_pqh"/>
         <argument key="App\Controller\SandwichsController::edit" type="service_closure" id=".service_locator.uT3_pqh"/>
@@ -7517,6 +7841,8 @@
         <argument key="App\Controller\SandwichsController::new" type="service_closure" id=".service_locator.IC38Egd"/>
         <argument key="App\Controller\SandwichsController::show" type="service_closure" id=".service_locator.kFQQBqT"/>
         <argument key="App\Controller\SecurityController::login" type="service_closure" id=".service_locator.rSTd.nA"/>
+        <argument key="App\Controller\SecurityController::mdpOublier" type="service_closure" id=".service_locator.uj_8cyE"/>
+        <argument key="App\Controller\SecurityController::resetMdp" type="service_closure" id=".service_locator.9_v1Zwc"/>
         <argument key="App\Controller\TexmexsController::delete" type="service_closure" id=".service_locator.hwxRnby"/>
         <argument key="App\Controller\TexmexsController::edit" type="service_closure" id=".service_locator.hwxRnby"/>
         <argument key="App\Controller\TexmexsController::index" type="service_closure" id=".service_locator.QbEmnbE"/>
@@ -7602,15 +7928,15 @@
         <argument key="App\Controller\BurgersController:show" type="service_closure" id=".service_locator.u1lHVoe"/>
         <argument key="App\Controller\CartController:add" type="service_closure" id=".service_locator.RzKltRg"/>
         <argument key="App\Controller\CartController:delete" type="service_closure" id=".service_locator.RzKltRg"/>
-        <argument key="App\Controller\CartController:index" type="service_closure" id=".service_locator.5hqoB0I"/>
+        <argument key="App\Controller\CartController:index" type="service_closure" id=".service_locator.AImM1L4"/>
         <argument key="App\Controller\CartController:remove" type="service_closure" id=".service_locator.RzKltRg"/>
-        <argument key="App\Controller\OrdersController:index" type="service_closure" id=".service_locator.wmDynVr"/>
+        <argument key="App\Controller\OrdersController:index" type="service_closure" id=".service_locator.w5FJ8Cl"/>
         <argument key="App\Controller\OrdersController:success" type="service_closure" id=".service_locator.5PHgCSU"/>
         <argument key="App\Controller\ProfilController:index" type="service_closure" id=".service_locator.9kKwU2t"/>
         <argument key="App\Controller\RecapController:index" type="service_closure" id=".service_locator.CsMkqUa"/>
         <argument key="App\Controller\RecapController:new" type="service_closure" id=".service_locator.V71r_w4"/>
         <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.wthfEq8"/>
-        <argument key="App\Controller\RegistrationController:resendVerif" type="service_closure" id=".service_locator.400NPhu"/>
+        <argument key="App\Controller\RegistrationController:resendVerif" type="service_closure" id=".service_locator.xVvLpJU"/>
         <argument key="App\Controller\RegistrationController:verifyUser" type="service_closure" id=".service_locator.86wU1oC"/>
         <argument key="App\Controller\SandwichsController:delete" type="service_closure" id=".service_locator.uT3_pqh"/>
         <argument key="App\Controller\SandwichsController:edit" type="service_closure" id=".service_locator.uT3_pqh"/>
@@ -7618,6 +7944,8 @@
         <argument key="App\Controller\SandwichsController:new" type="service_closure" id=".service_locator.IC38Egd"/>
         <argument key="App\Controller\SandwichsController:show" type="service_closure" id=".service_locator.kFQQBqT"/>
         <argument key="App\Controller\SecurityController:login" type="service_closure" id=".service_locator.rSTd.nA"/>
+        <argument key="App\Controller\SecurityController:mdpOublier" type="service_closure" id=".service_locator.uj_8cyE"/>
+        <argument key="App\Controller\SecurityController:resetMdp" type="service_closure" id=".service_locator.9_v1Zwc"/>
         <argument key="App\Controller\TexmexsController:delete" type="service_closure" id=".service_locator.hwxRnby"/>
         <argument key="App\Controller\TexmexsController:edit" type="service_closure" id=".service_locator.hwxRnby"/>
         <argument key="App\Controller\TexmexsController:index" type="service_closure" id=".service_locator.QbEmnbE"/>
@@ -7753,7 +8081,7 @@
       <argument type="service" id="debug.stopwatch"/>
     </service>
     <service id="debug.doctrine.orm.entity_value_resolver" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\TraceableValueResolver">
-      <tag name="controller.argument_value_resolver" priority="110"/>
+      <tag name="Symfony\Bridge\Doctrine\ArgumentResolver\EntityValueResolver" priority="110">controller.argument_value_resolver</tag>
       <argument type="service" id="debug.doctrine.orm.entity_value_resolver.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
@@ -7817,12 +8145,14 @@
       <argument type="service" id="debug.argument_resolver.not_tagged_controller.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id=".service_locator.p_RQUD_" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.am2LjQI" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Form\BurgersType" type="service_closure" id="App\Form\BurgersType"/>
         <argument key="App\Form\OrdersType" type="service_closure" id="App\Form\OrdersType"/>
         <argument key="App\Form\RegistrationFormType" type="service_closure" id="App\Form\RegistrationFormType"/>
+        <argument key="App\Form\ResetMdpFormType" type="service_closure" id="App\Form\ResetMdpFormType"/>
+        <argument key="App\Form\ResetMdpRequestFormType" type="service_closure" id="App\Form\ResetMdpRequestFormType"/>
         <argument key="App\Form\SandwichsType" type="service_closure" id="App\Form\SandwichsType"/>
         <argument key="App\Form\TexmexsType" type="service_closure" id="App\Form\TexmexsType"/>
         <argument key="App\Form\UserType" type="service_closure" id="App\Form\UserType"/>
@@ -8170,18 +8500,34 @@
     </service>
     <service id="monolog.handler.null_internal" class="Monolog\Handler\NullHandler"/>
     <service id="EasyCorp\Bundle\EasyAdminBundle\Registry\DashboardControllerRegistry" class="EasyCorp\Bundle\EasyAdminBundle\Registry\DashboardControllerRegistry">
-      <argument>%env(APP_SECRET)%</argument>
       <argument>C:\Users\i\symfony_site\var\cache\dev</argument>
       <argument type="collection">
-        <argument>App\Controller\Admin\DashboardController</argument>
+        <argument key="App\Controller\Admin\DashboardController">f91e64c</argument>
+      </argument>
+      <argument type="collection">
+        <argument key="f91e64c">App\Controller\Admin\DashboardController</argument>
       </argument>
     </service>
     <service id="EasyCorp\Bundle\EasyAdminBundle\Registry\CrudControllerRegistry" class="EasyCorp\Bundle\EasyAdminBundle\Registry\CrudControllerRegistry">
-      <argument>%env(APP_SECRET)%</argument>
       <argument type="collection">
-        <argument>App\Controller\Admin\BurgersCrudController</argument>
-        <argument>App\Controller\Admin\SandwichsCrudController</argument>
-        <argument>App\Controller\Admin\TexmexsCrudController</argument>
+        <argument key="App\Controller\Admin\BurgersCrudController">App\Entity\Burgers</argument>
+        <argument key="App\Controller\Admin\SandwichsCrudController">App\Entity\Sandwichs</argument>
+        <argument key="App\Controller\Admin\TexmexsCrudController">App\Entity\Texmexs</argument>
+      </argument>
+      <argument type="collection">
+        <argument key="App\Controller\Admin\BurgersCrudController">bfb24d0</argument>
+        <argument key="App\Controller\Admin\SandwichsCrudController">21f7eb1</argument>
+        <argument key="App\Controller\Admin\TexmexsCrudController" type="string">243e415</argument>
+      </argument>
+      <argument type="collection">
+        <argument key="App\Entity\Burgers">App\Controller\Admin\BurgersCrudController</argument>
+        <argument key="App\Entity\Sandwichs">App\Controller\Admin\SandwichsCrudController</argument>
+        <argument key="App\Entity\Texmexs">App\Controller\Admin\TexmexsCrudController</argument>
+      </argument>
+      <argument type="collection">
+        <argument key="bfb24d0">App\Controller\Admin\BurgersCrudController</argument>
+        <argument key="21f7eb1">App\Controller\Admin\SandwichsCrudController</argument>
+        <argument key="243e415">App\Controller\Admin\TexmexsCrudController</argument>
       </argument>
     </service>
     <service id=".service_locator.yY.p4P7" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -8632,12 +8978,12 @@
       <argument type="service" id="EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.NiqJx.L"/>
+      <argument type="service" id=".service_locator.iQsG4v_"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.NiqJx.L"/>
+      <argument type="service" id=".service_locator.iQsG4v_"/>
     </service>
     <service id="debug.traced.messenger.bus.default.inner" class="Symfony\Component\Messenger\MessageBus">
       <argument type="iterator">
@@ -8676,7 +9022,8 @@
     <service id=".errored..service_locator.u1lHVoe.App\Entity\Burgers" class="App\Entity\Burgers"/>
     <service id=".errored..service_locator.H9BPYsm.App\Entity\Burgers" class="App\Entity\Burgers"/>
     <service id=".errored..service_locator.RzKltRg.App\Entity\Burgers" class="App\Entity\Burgers"/>
-    <service id=".errored..service_locator.400NPhu.Doctrine\ORM\EntityManager" class="Doctrine\ORM\EntityManager"/>
+    <service id=".errored..service_locator.xVvLpJU.Doctrine\ORM\EntityManager" class="Doctrine\ORM\EntityManager"/>
+    <service id=".errored..service_locator.xVvLpJU.App\Entity\User" class="App\Entity\User"/>
     <service id=".errored..service_locator.kFQQBqT.App\Entity\Sandwichs" class="App\Entity\Sandwichs"/>
     <service id=".errored..service_locator.uT3_pqh.App\Entity\Sandwichs" class="App\Entity\Sandwichs"/>
     <service id=".errored..service_locator.PKUahGa.App\Entity\Texmexs" class="App\Entity\Texmexs"/>
@@ -9583,9 +9930,9 @@
     <service id="cache.default_redis_provider" alias=".cache_connection.GD_MSZC"/>
     <service id="cache.default_memcached_provider" alias=".cache_connection.JKE6keX"/>
     <service id="cache.default_doctrine_dbal_provider" alias="doctrine.dbal.default_connection"/>
-    <service id="SessionHandlerInterface" alias="session.handler.native_file"/>
+    <service id="SessionHandlerInterface" alias="session.handler.native"/>
     <service id="session.storage.factory" alias="session.storage.factory.native"/>
-    <service id="session.handler" alias="session.handler.native_file"/>
+    <service id="session.handler" alias="session.handler.native"/>
     <service id="Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface" alias="security.csrf.token_generator"/>
     <service id="Symfony\Component\Security\Csrf\TokenStorage\TokenStorageInterface" alias="security.csrf.token_storage"/>
     <service id="Symfony\Component\Security\Csrf\CsrfTokenManagerInterface" alias="security.csrf.token_manager"/>
@@ -9652,7 +9999,7 @@
     <service id="SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface" alias="symfonycasts.verify_email.helper"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.7nzbL4K" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.NiqJx.L"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.iQsG4v_"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -9677,15 +10024,17 @@
     <service id=".service_locator.twrFs.m" alias=".service_locator.jwjltq_"/>
     <service id=".service_locator.lng3o3t" alias=".service_locator.yR6jqeD"/>
     <service id=".service_locator.Lazlz4J" alias=".service_locator.jG5xrFj"/>
-    <service id=".service_locator.UQQgxzw" alias=".service_locator.5hqoB0I"/>
+    <service id=".service_locator.2h85Tpp" alias=".service_locator.AImM1L4"/>
     <service id=".service_locator.HO.QBUg" alias=".service_locator.5PHgCSU"/>
     <service id=".service_locator.p5d8WJW" alias=".service_locator.wthfEq8"/>
     <service id=".service_locator.iYakSL7" alias=".service_locator.86wU1oC"/>
-    <service id=".service_locator.yAqCzJV" alias=".service_locator.400NPhu"/>
+    <service id=".service_locator.BKp87f0" alias=".service_locator.xVvLpJU"/>
+    <service id=".service_locator.OtGA59E" alias=".service_locator.uj_8cyE"/>
+    <service id=".service_locator.NK2govH" alias=".service_locator.9_v1Zwc"/>
     <service id=".service_locator.siLTv8S" alias=".service_locator.mMVerKR"/>
-    <service id=".service_locator.KZK6UOq" alias=".service_locator.NiqJx.L"/>
+    <service id=".service_locator.YydM9.f" alias=".service_locator.iQsG4v_"/>
     <service id=".service_locator.9XMoc9I" alias=".service_locator.kzegaci"/>
-    <service id=".service_locator.WQf6g48" alias=".service_locator.p_RQUD_"/>
+    <service id=".service_locator.ndlGkZd" alias=".service_locator.am2LjQI"/>
     <service id=".service_locator.XW18Svm" alias=".service_locator.TcKhdzh"/>
     <service id=".service_locator.O24_MAy" alias=".service_locator.yY.p4P7"/>
     <service id=".service_locator.CguiEQR" alias=".service_locator.5eP_qL9"/>
@@ -9753,19 +10102,21 @@
     <service id=".service_locator.zks9SXM" alias=".service_locator.x7wo5ew"/>
     <service id=".service_locator.Gk_ySBV" alias=".service_locator.u1lHVoe"/>
     <service id=".service_locator.8EZjamq" alias=".service_locator.H9BPYsm"/>
-    <service id=".service_locator.ntf0Dqg" alias=".service_locator.5hqoB0I"/>
+    <service id=".service_locator.QgYr0pd" alias=".service_locator.AImM1L4"/>
     <service id=".service_locator.XPqVq3a" alias=".service_locator.RzKltRg"/>
-    <service id=".service_locator.bFXfnE6" alias=".service_locator.wmDynVr"/>
+    <service id=".service_locator.huVtXKG" alias=".service_locator.w5FJ8Cl"/>
     <service id=".service_locator.pjbg7dL" alias=".service_locator.5PHgCSU"/>
     <service id=".service_locator.gaTSUXr" alias=".service_locator.9kKwU2t"/>
     <service id=".service_locator.6k5RJBU" alias=".service_locator.V71r_w4"/>
     <service id=".service_locator.ogVAYrU" alias=".service_locator.wthfEq8"/>
     <service id=".service_locator.XtjTsk4" alias=".service_locator.86wU1oC"/>
-    <service id=".service_locator.TdjtLuT" alias=".service_locator.400NPhu"/>
+    <service id=".service_locator.NODPUeI" alias=".service_locator.xVvLpJU"/>
     <service id=".service_locator.9XMRljh" alias=".service_locator.IC38Egd"/>
     <service id=".service_locator.HuGHQ6R" alias=".service_locator.kFQQBqT"/>
     <service id=".service_locator.cumCHb8" alias=".service_locator.uT3_pqh"/>
     <service id=".service_locator.7NIAq8D" alias=".service_locator.rSTd.nA"/>
+    <service id=".service_locator.60e2YNk" alias=".service_locator.uj_8cyE"/>
+    <service id=".service_locator.4zYSd5b" alias=".service_locator.9_v1Zwc"/>
     <service id=".service_locator.mumUgFX" alias=".service_locator.QbEmnbE"/>
     <service id=".service_locator.YqVlXdo" alias=".service_locator.PKUahGa"/>
     <service id=".service_locator.2ITOEEg" alias=".service_locator.hwxRnby"/>

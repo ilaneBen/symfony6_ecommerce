@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ticket de caisse{% endblock %}
+
+{% block body %}
+<section class="slide_section">
+<div class="form">
+
+<img src="{{ asset('assets/images/l.png') }}" alt="">
+<p> <strong>Paiement reussi !</strong></p> 
+<p> Commande en cours de préparation !</p>
+
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			font-size: 12px;
+			margin: 0;
+			padding: 0;
+          
+		}
+
+		.container {
+			max-width: 300px;
+			margin: 0 auto;
+			padding: 10px;
+			border: 1px solid #ccc;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+		}
+
+		h1 {
+			font-size: 18px;
+			text-align: center;
+			margin-top: 0;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			margin-top: 10px;
+		}
+
+		th, td {
+			padding: 5px;
+			text-align: left;
+			border-bottom: 1px solid #ccc;
+		}
+
+		th {
+			background-color: #ffffff;
+			font-weight: normal;
+		}
+
+		tfoot td {
+			padding-top: 10px;
+			text-align: right;
+		}
+
+		.total {
+			font-weight: bold;
+		}
+	</style>
+</head>
+
+	<div >
+		<h1>Ticket de caisse</h1>
+		<table>
+			<thead>
+				<tr>
+					<th>Produit</th>
+					<th>Prix unitaire</th>
+					<th>Quantité</th>
+					<th>Total</th>
+				</tr>
+			</thead>
+			<tbody>
+				
+               {% set total = 0 %}
+{% for item in items %}
+    <tr>
+        <td>{{ item.price_data.product_data.name }}</td>
+        <td>{{ item.price_data.unit_amount / 100 }}€</td>
+        <td>{{ item.quantity }}</td>
+        {% set item_total = item.price_data.unit_amount / 100 * item.quantity %}
+        <td class="total">{{ item_total }}€</td>
+        {% set total = total + item_total %}
+    </tr>
+{% endfor %}
+<tr>
+    <td colspan="6">Total :</td>
+    <td class="total">{{ total }}€</td>
+</tr>
+
+				
+			</tbody>
+			<tfoot>
+				<tr>
+					
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+    </section>
+
+
+
+{% endblock %}

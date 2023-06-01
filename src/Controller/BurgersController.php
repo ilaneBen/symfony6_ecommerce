@@ -56,7 +56,7 @@ class BurgersController extends AbstractController
     {
         $form = $this->createForm(BurgersType::class, $burger);
         $form->handleRequest($request);
-
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $burgersRepository->save($burger, true);
 
